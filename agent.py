@@ -1,4 +1,5 @@
 from textwrap import dedent
+import os
 from agno.agent import Agent
 from agno.models.openai import OpenAIChat
 from agno.tools.duckduckgo import DuckDuckGoTools
@@ -6,14 +7,13 @@ from agno.tools.newspaper4k import Newspaper4kTools
 from dotenv import load_dotenv
 from agno.models.azure import AzureOpenAI
 from agno.tools.reasoning import ReasoningTools
+from agno.models.lmstudio import LMStudio
+
 load_dotenv() 
 
 # Initialize the research agent with advanced journalistic capabilities
 research_agent = Agent(
-    model=AzureOpenAI(id="gpt-4o-2024-08-06",
-                      api_version="2024-02-01",
-                      azure_endpoint="",
-                      api_key=""),
+    model=LMStudio(id=os.getenv("LMSTUDIO_MODEL_ID", "deepseek-r1-distill-qwen-7b")),
     tools=[ReasoningTools(add_instructions=True),DuckDuckGoTools(), Newspaper4kTools()],
     description=dedent("""\
         You are an elite investigative journalist with decades of experience at the New York Times.
