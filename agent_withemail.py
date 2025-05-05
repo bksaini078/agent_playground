@@ -3,16 +3,16 @@ from agno.tools.email import EmailTools
 from agno.models.azure import AzureOpenAI
 
 
-receiver_email = "sonalsaini29@gmail.com"
-sender_email = "bksaini078@gmail.com"
+receiver_email = ""
+sender_email = ""
 sender_name = "Bhupender Kumar Saini"
 sender_passkey = "<sender_passkey>"
 
 agent = Agent(
     model=AzureOpenAI(id="gpt-4o-2024-08-06",
                       api_version="2024-02-01",
-                      azure_endpoint="https://fhgenie-api-iao-quanderlan.openai.azure.com/",
-                      api_key="9a34553c47b942c1816d5924b8280d7b"),
+                      azure_endpoint="",
+                      api_key=""),
     tools=[
         EmailTools(
             receiver_email=receiver_email,

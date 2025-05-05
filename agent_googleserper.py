@@ -16,7 +16,10 @@ from agno.tools.hackernews import HackerNewsTools
 
 
 agent = Agent(
-    model=,
+    model=AzureOpenAI(id="gpt-4o-2024-08-06",
+                      api_version="2024-02-01",
+                      azure_endpoint="",
+                      api_key=""),
     tools=[HackerNewsTools()],
     description="You are a news agent that helps users find the latest news.",
     instructions=[
