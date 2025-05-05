@@ -1,0 +1,15 @@
+[project]
+name = "agent-playground"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "agno>=1.4.4",
+    "aiohttp>=3.11.18",
+    "azure-ai-inference>=1.0.0b9",
+    "mcp>=1.7.1",
+    "mistralai>=1.7.0",
+    "openai>=1.77.0",
+    "sqlalchemy>=2.0.40",
+]
