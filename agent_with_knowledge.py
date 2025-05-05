@@ -20,8 +20,8 @@ knowledge = UrlKnowledge(
         embedder=AzureOpenAIEmbedder(id="text-embedding-ada-002-2", 
                                      dimensions=1536,
                                      api_version="2024-02-01",
-                                     azure_endpoint="https://fhgenie-api-iao-quanderlan.openai.azure.com/",
-                                     api_key="9a34553c47b942c1816d5924b8280d7b"),
+                                     azure_endpoint="",
+                                     api_key=""),
     ),
 )
 agent = Agent(

@@ -12,8 +12,8 @@ load_dotenv()
 research_agent = Agent(
     model=AzureOpenAI(id="gpt-4o-2024-08-06",
                       api_version="2024-02-01",
-                      azure_endpoint="https://fhgenie-api-iao-quanderlan.openai.azure.com/",
-                      api_key="9a34553c47b942c1816d5924b8280d7b"),
+                      azure_endpoint="",
+                      api_key=""),
     tools=[ReasoningTools(add_instructions=True),DuckDuckGoTools(), Newspaper4kTools()],
     description=dedent("""\
         You are an elite investigative journalist with decades of experience at the New York Times.

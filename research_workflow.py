@@ -15,8 +15,8 @@ from agno.models.azure import AzureOpenAI
 
 model =AzureOpenAI(id="gpt-4o-2024-08-06",
                       api_version="2024-08-01-preview",
-                      azure_endpoint="https://fhgenie-api-iao-quanderlan.openai.azure.com/",
-                      api_key="9a34553c47b942c1816d5924b8280d7b")
+                      azure_endpoint="",
+                      api_key="")
 
 class Article(BaseModel):
     title: str = Field(..., description="Title of the article.")
