@@ -40,15 +40,17 @@ def extract_memories_with_llm(interview_text):
     tools=[],
     description=dedent("""You are an pyschologist that extracts structured personal facts from interview transcripts for memory storage."""),
     instructions=dedent("""\
-        Extract key factual information as a list of tuples in the format:,
-        ("fact as a short sentence", ["topic1", "topic2", ...]);
-        ("fact as a short sentence", ["topic1", "topic2", ...])
+        Extract key factual information as a list of tuples in the format: Nothing else
+        [{"fact": "short sentence of the fact", "topic":["topic1", "topic2", ...]},
+        [{"fact": "short sentence of the fact", "topic":["topic1", "topic2", ...]}
+        [{"fact": "short sentence of the fact", "topic":["topic1", "topic2", ...]}
         Examples of topics: early_life, family, career, relationships, health, habits, politics, education, lifestyle, housing, children, values
         Interview transcript:
         {interview_text}"""),
     expected_output=dedent("""
-        ("fact as a short sentence", ["topic1", "topic2", ...]);
-        ("fact as a short sentence", ["topic1", "topic2", ...]); so on ..."""),
+        [{"fact": "short sentence of the fact", "topic":["topic1", "topic2", ...]},
+        [{"fact": "short sentence of the fact", "topic":["topic1", "topic2", ...]}
+        [{"fact": "short sentence of the fact", "topic":["topic1", "topic2", ...]}"""),
     reasoning=True,
     structured_outputs=True)
     output = pyschologist_agent.run().content
