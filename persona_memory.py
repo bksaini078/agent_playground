@@ -28,10 +28,12 @@ def load_text(filepath):
 
 # Step 2: Use LLM to extract structured memories
 def extract_memories_with_llm(interview_text):
+    load_dotenv()
+    print(os.getenv("AZURE_OPENAI_MODEL_ID"))
     pyschologist_agent = Agent(
     model=AzureOpenAI(
-                id=os.getenv("AZURE_MODEL_ID", "gpt-4o-2024-05-13"),
-                api_version=os.getenv("AZURE_OPENAI_API_VERSION", "2024-08-01-preview"),
+                id=os.getenv("AZURE_OPENAI_MODEL_ID"),
+                api_version=os.getenv("AZURE_OPENAI_API_VERSION"),
                 api_key=os.getenv("AZURE_OPENAI_API_KEY", ""),
                 azure_endpoint=os.getenv("AZURE_OPENAI_ENDPOINT", ""),
             ),
@@ -43,7 +45,7 @@ def extract_memories_with_llm(interview_text):
                         3. Find out topics of each facts and information.
                         4. if possible, extract the personality traits too in the form of facts.
                         5. Collect atleast 20 details about the person.
-                        Extract the information: Name, birthplace, early_life, family, career, relationships, health, habits, politics, education, lifestyle, housing, children, values.
+                        Extract the information: Name, birthplace, early_life, family, career, relationships, health, habits, turning points, marketing, buying habbits, politics, education, lifestyle, housing, children, values.
                         Now below is the interview transcript:
                         Interview transcript:\n"""),
     response_model=FactResponse,
@@ -74,8 +76,8 @@ def store_memories(user_id, memories: FactResponse, db_path="tmp/memory.db"):
 # Main
 if __name__ == "__main__":
     transcript = load_text("interview_david.txt")
-    print(transcript)
+    # print(transcript)
     memories_to_remember = extract_memories_with_llm(transcript)
-    print(f"Memories to print: {memories_to_remember.content}")
+    # print(f"Memories to print: {memories_to_remember.content}")
     if memories_to_remember:
         store_memories(user_id="david@example.com", memories=memories_to_remember.content)
