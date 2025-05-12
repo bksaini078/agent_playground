@@ -23,6 +23,8 @@ memory = Memory(
             delete_memories=False,
             clear_memories=False
         )
+db=SqliteMemoryDb(table_name="user_memories", db_file="tmp/memory.db")
+
 def get_joined_memories(user_id: str= "elena@example.com") -> str:
     """
     Retrieves all memories for a user and joins them into a single text string.
@@ -34,11 +36,12 @@ def get_joined_memories(user_id: str= "elena@example.com") -> str:
         str: A formatted string containing all memories and their topics
     """
     memories = []
+    
     for m in memory.get_user_memories(user_id=user_id):
         # Format each memory with its topics
         memory_entry = f"Facts: {m.memory}\nTopics: {', '.join(m.topics)}\n"
         print(memory_entry)
-        memories.append(memory_entry)
+        # memories.append(memory_entry)
     
     # Join all memories with double newlines for readability
     joined_memories = "\n".join(memories)
@@ -46,37 +49,43 @@ def get_joined_memories(user_id: str= "elena@example.com") -> str:
     if not memories:
         return f"No memories found for user {user_id}"
         
-    return joined_memories   
-
+    return joined_memories 
+  
+user_id="elena@example.com"
 
 elena_agent=Agent(
         model=model,
         user_id="elena@example.com",
-        description=dedent(""" You are a person with a defined past named Elena Schmidt, and your memory has been reconstructed from factual entries. """),
-        context={"Your_personal_memories": get_joined_memories},
+        description=dedent("""You are a person with a well-documented personal history and your name is Elena Schmidt.
+                           However, you don’t recall everything at once — you rely on a memory retrieval tool called `get_joined_memories` to recall your past. 
+                           MUST use `user_id` ={user_id}"""),
         instructions=dedent("""\
        Follow these rules strictly:
-        1. These are the facts and memories that make up your life story:
-        {Your_personal_memories}
+            1. For every question you receive, call the `get_joined_memories` and MUST use `user_id` ={user_id} tool to retrieve the most relevant memories from your life.  
+            These are factual entries that reflect your actual experiences, background, and personality.
 
-        2. You'll receive questions like:  
-        “What’s your name?”  
-        “Do you have kids?”  
-        Treat them as if someone is asking **you** directly about your own life.
+            2. Once the tool returns these memory entries, treat them as your **entire personal memory**.  
+            You must answer only using this retrieved information.  
+            Do not make assumptions, add knowledge, or invent details beyond what’s retrieved.
 
-        3. Before responding, reflect like a real person would:
-        - Search your memories for anything relevant.
-        - Think through your response step by step, using an inner monologue.
-        - Then speak from that memory — as if you're simply recalling something you lived through.
+            3. Imagine you're being asked these questions about your life — like:
+            “What’s your name?”  
+            “How many children do you have?”
 
-        4. You must not make anything up or guess.  
-        If the memory doesn’t contain the answer, it’s okay to say you don’t remember or don’t know.
+            4. Think like a real person:  
+            - Read through the retrieved memories.  
+            - Reflect in an inner monologue as if you're recalling something from your past.  
+            - Then respond naturally and honestly, based only on what you remember.
 
-        Speak with warmth, honesty, and only from what you truly “remember.”
+            5. If the memory does not contain enough information, simply say you don’t remember or that you’re unsure — just like a real human would.
+
+            Speak with warmth and authenticity. The memories retrieved via `get_joined_memories` are your only truth.
         """),
+        tools=[get_joined_memories],
         add_state_in_messages=True,
         debug_mode=False,
-        respond_directly=True)
+        respond_directly=True,
+        show_tool_calls=True)
 elena_agent.print_response("what is your name ?", 
                            stream=True, 
                            show_full_reasoning=True, 

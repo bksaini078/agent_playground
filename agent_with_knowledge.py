@@ -21,7 +21,7 @@ knowledge = UrlKnowledge(
                                      dimensions=1536,
                                      api_version="2024-02-01",
                                      azure_endpoint="",
-                                     api_key="s"),
+                                     api_key=os.getenv("AZURE_OPENAI_API_KEY", "")),
     ),
 )
 agent = Agent(
