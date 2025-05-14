@@ -167,7 +167,7 @@ def store_memories(user_id, memories: FactResponse, db_path="tmp/memory.db"):
 
 # Main
 if __name__ == "__main__":
-    transcript = load_text("interview_elena_longer.txt")
+    transcript = load_text("data\interview_elena_longer.txt")
     # print(transcript)
     memories_to_remember = extract_memories_with_llm(transcript)
     if memories_to_remember:
