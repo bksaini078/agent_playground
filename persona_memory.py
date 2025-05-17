@@ -102,10 +102,9 @@ def extract_memories_with_llm(interview_text):
             Follow these steps:
             1. Understand the interview transcript.
             2. For each question of interviewer, extract facts and information from the interviewee answer about the persona as much as possible.
-            3. Find out topics of each facts and information.
+            3. Find out topics of each facts and information. Out of these: [Financial, Job, Shopping Behaviour, Decision Making, Political, Childhood, Adolescence, Family, Emotional, Education, Moral Values ]
             4. if possible, extract the personality traits too in the form of facts.
             5. Collect at least 20 details about the person.
-            Extract the information: Name, birthplace, early_life, family, career, relationships, health, habits, turning points, marketing, buying habits, politics, education, lifestyle, housing, children, values.
             Now below is the interview transcript:\n"""),
         response_model=FactResponse,
         use_json_mode=True
@@ -166,9 +165,9 @@ def store_memories(user_id, memories: FactResponse, db_path="tmp/memory.db"):
         print(f"- {m.memory} (Topics: {m.topics})")
 
 # Main
-if __name__ == "__main__":
-    transcript = load_text("data\interview_elena_longer.txt")
-    # print(transcript)
-    memories_to_remember = extract_memories_with_llm(transcript)
-    if memories_to_remember:
-        store_memories(user_id="elena@example.com", memories=memories_to_remember)
+# if __name__ == "__main__":
+#     transcript = load_text("interview_elena_longer.txt")
+#     # print(transcript)
+#     memories_to_remember = extract_memories_with_llm(transcript)
+#     if memories_to_remember:
+#         store_memories(user_id="elena@example.com", memories=memories_to_remember)

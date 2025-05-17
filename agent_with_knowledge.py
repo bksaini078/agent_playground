@@ -7,7 +7,7 @@ from agno.models.azure import AzureOpenAI
 from agno.embedder.azure_openai import AzureOpenAIEmbedder
 from agno.tools.reasoning import ReasoningTools
 from agno.models.azure import AzureOpenAI
-
+import os
 
 # Load Agno documentation in a knowledge base
 knowledge = UrlKnowledge(
@@ -24,6 +24,7 @@ knowledge = UrlKnowledge(
                                      api_key=os.getenv("AZURE_OPENAI_API_KEY", "")),
     ),
 )
+
 agent = Agent(
     name="Agno Assist",
     model=AzureOpenAI(id="gpt-4o-2024-08-06",
